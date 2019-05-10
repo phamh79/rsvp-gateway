@@ -1,0 +1,33 @@
+{
+	"name": "rsvp-gateway",
+	"version": "1.0.0",
+	"description": "single endpoint for rsvp services",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon ./src/index.js --ignore 'node_modules/'",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/phpppd/rsvp-gateway.git"
+	},
+	"keywords": [
+		"rsvp"
+	],
+	"author": "Phuc H Pham",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/phpppd/rsvp-gateway/issues"
+	},
+	"homepage": "https://github.com/phpppd/rsvp-gateway#readme",
+	"dependencies": {
+		"apollo-datasource-rest": "^0.4.0",
+		"apollo-server": "^2.5.0",
+		"dataloader": "^1.4.0",
+		"graphql": "^14.3.0",
+		"graphql-type-json": "^0.3.0"
+	},
+	"devDependencies": {
+		"nodemon": "^1.19.0"
+	}
+}
