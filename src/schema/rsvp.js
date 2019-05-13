@@ -68,7 +68,7 @@ module.exports = typeDefs = gql`
     }
 
     type Response {
-        responseId: Int
+        responseId: Int!
         venue: Venue
         visibility: String
         responseFlag: String

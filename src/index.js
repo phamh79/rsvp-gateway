@@ -4,7 +4,7 @@ const typeDefs = require('./schema/rsvp');
 const resolvers = require('./resolvers/rsvp')
 // data loaders
 const DataLoader = require('dataloader')
-const { eventsByIdsFn } = require('./utils/loaders_helper')
+const { eventBatchFn, responseBatchFn } = require('./utils/loaders_helper')
 
 
 // data sources
@@ -25,7 +25,8 @@ const server = new ApolloServer({
     responseAPI: new ResponseAPI()
   }),
   context: () => ({
-    eventLoader: new DataLoader(eventsByIdsFn)
+    eventLoader: new DataLoader(eventBatchFn),
+    responseLoader: new DataLoader(responseBatchFn)
   })
 })
 server.listen().then(({ url }) => {

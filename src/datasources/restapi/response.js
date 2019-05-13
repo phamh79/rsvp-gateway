@@ -20,7 +20,8 @@ class ResponseAPI extends RESTDataSource {
     }
 
     async getResponseById(responseId) {
-        const response = await this.get(`response/${responseId}`)
+        //const response = await this.get(`response/${responseId}`)
+        const response = await this.context.responseLoader.load(responseId)
         return this.responseReducer(response)
     }
 
