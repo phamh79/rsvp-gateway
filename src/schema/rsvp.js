@@ -74,7 +74,7 @@ module.exports = typeDefs = gql`
         responseFlag: String
         guests: Int
         member: Member
-        mtime: Int
+        mtime: String
         event: Event
         group : Group 
     }
@@ -99,7 +99,7 @@ module.exports = typeDefs = gql`
         memberId: Int
         photo: String
         memberName: String
-        otherServices: OtherServices
+        other_services: OtherServices
     }
 
     type OtherServices {

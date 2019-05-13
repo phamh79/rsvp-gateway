@@ -1,14 +1,21 @@
 const { ApolloServer } = require('apollo-server');
-const schema = require('./schema/rsvp');
+
+const typeDefs = require('./schema/rsvp');
 const resolvers = require('./resolvers/rsvp')
-const EventAPI = require('./datasources/event')
-const VenueAPI = require('./datasources/venue')
-const GroupAPI = require('./datasources/group')
-const MemberAPI = require('./datasources/member')
-const ResponseAPI = require('./datasources/response')
+// data loaders
+const DataLoader = require('dataloader')
+const { eventsByIdsFn } = require('./utils/loaders_helper')
+
+
+// data sources
+const EventAPI = require('./datasources/restapi/event')
+const VenueAPI = require('./datasources/restapi/venue')
+const GroupAPI = require('./datasources/restapi/group')
+const MemberAPI = require('./datasources/restapi/member')
+const ResponseAPI = require('./datasources/restapi/response')
 
 const server = new ApolloServer({
-  typeDefs: schema,
+  typeDefs,
   resolvers,
   dataSources: () => ({
     eventAPI: new EventAPI(),
@@ -16,6 +23,9 @@ const server = new ApolloServer({
     groupAPI: new GroupAPI(),
     memberAPI: new MemberAPI(),
     responseAPI: new ResponseAPI()
+  }),
+  context: () => ({
+    eventLoader: new DataLoader(eventsByIdsFn)
   })
 })
 server.listen().then(({ url }) => {

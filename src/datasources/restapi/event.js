@@ -8,9 +8,9 @@ class EventAPI extends RESTDataSource {
     }
 
     async getEvents({ num = 30, cursor = 0 }) {
-        const apiEvents = await this.get(`events/${num}/${cursor}`)
+        const rtnEvents = await this.get(`events/${num}/${cursor}`)
         let newCursor = cursor + num,
-            events = Array.isArray(apiEvents) ? apiEvents.map(event => this.eventReducer(event)) : []
+            events = Array.isArray(rtnEvents) ? apiEvents.map(event => this.eventReducer(event)) : []
 
         return {
             cursor: newCursor,
@@ -21,8 +21,20 @@ class EventAPI extends RESTDataSource {
     }
 
     async getEventById(eventId) {
-        const event = await this.get(`event/${eventId}`)
+        //const event = await this.get(`event/${eventId}`)
+        const event = await this.context.eventLoader.load(eventId)
         return this.eventReducer(event)
+        
+    }
+
+    async getEventsByIds(eventIds) {
+        const rtnEvents = await this.post(
+            {
+                path: `events/ids/`,
+                body: { ids: eventIds }
+            }
+        )
+        return Array.isArray(rtnEvents) ? apiEvents.map(event => this.eventReducer(event)) : [] 
     }
 
     eventReducer(event) {

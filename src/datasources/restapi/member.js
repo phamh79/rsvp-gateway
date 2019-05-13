@@ -19,16 +19,23 @@ class MemberAPI extends RESTDataSource {
     }
 
     async getMemberById(memberId) {
-        const member = await this.get(`member/${memberId}`)
+        let member;
+        try {
+            member = await this.get(`member/${memberId}`)
+        } catch (error) {
+            console.log(error)
+            return null
+        }
+        
         return this.memberReducer(member)
     }
 
     memberReducer(member) {
         return {
-            memberName: member.member_name,
             memberId: member.member_id,
-            time: member.time,
-            memberURL: member.member_url,
+            memberName: member.member_name,
+            photo: member.photo,
+            other_services: member.other_services
         }
     }
 }
