@@ -9,9 +9,8 @@ class VenueAPI extends RESTDataSource {
 
     async getVenues({ num = 30, cursor = 0 }) {
         const apiVenues = await this.get(`venues/${num}/${cursor}`)
-        let newCursor = cursor + num,
-            venues = Array.isArray(apiVenues) ? apiVenues.map(venue => this.venueReducer(venue)) : []
-
+        let venues = Array.isArray(apiVenues) ? apiVenues.map(venue => this.venueReducer(venue)) : [],
+            newCursor = cursor + venues.length
         return {
             cursor: newCursor,
             hasMore: venues.length == num,
@@ -23,7 +22,8 @@ class VenueAPI extends RESTDataSource {
     async getVenueById(venueId) {
         if (venueId == 0)
             return null
-        const venue = await this.get(`venue/${venueId}`)
+        //const venue = await this.get(`venue/${venueId}`)
+        const venue = await this.context.venueLoader.load(venueId)
         return this.venueReducer(venue)
     }
 

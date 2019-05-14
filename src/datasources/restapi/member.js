@@ -7,9 +7,8 @@ class MemberAPI extends RESTDataSource {
 
     async getMembers({ num = 30, cursor = 0 }) {
         const apiMembers = await this.get(`members/${num}/${cursor}`)
-        let newCursor = cursor + num,
-            members = Array.isArray(apiMembers) ? apiMembers.map(member => this.memberReducer(member)) : []
-
+        let members = Array.isArray(apiMembers) ? apiMembers.map(member => this.memberReducer(member)) : [],
+            newCursor = cursor + members.length
         return {
             cursor: newCursor,
             hasMore: members.length == num,
@@ -21,7 +20,8 @@ class MemberAPI extends RESTDataSource {
     async getMemberById(memberId) {
         let member;
         try {
-            member = await this.get(`member/${memberId}`)
+            //member = await this.get(`member/${memberId}`)
+            member = await this.context.memberLoader.load(memberId)
         } catch (error) {
             console.log(error)
             return null

@@ -7,8 +7,8 @@ class GroupAPI extends RESTDataSource {
 
     async getGroups({ num = 30, cursor = 0 }) {
         const apiGroups = await this.get(`groups/${num}/${cursor}`)
-        let newCursor = cursor + num,
-            groups = Array.isArray(apiGroups) ? apiGroups.map(group => this.groupReducer(group)) : []
+        let groups = Array.isArray(apiGroups) ? apiGroups.map(group => this.groupReducer(group)) : [],
+            newCursor = cursor + groups.length
 
         return {
             cursor: newCursor,
@@ -19,7 +19,8 @@ class GroupAPI extends RESTDataSource {
     }
 
     async getGroupById(groupId) {
-        const group = await this.get(`group/${groupId}`)
+        //const group = await this.get(`group/${groupId}`)
+        const group = await this.context.groupLoader.load(groupId)
         return this.groupReducer(group)
     }
 

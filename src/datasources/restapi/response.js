@@ -8,9 +8,8 @@ class ResponseAPI extends RESTDataSource {
 
     async getResponses({ num = 30, cursor = 0 }) {
         const apiResponses = await this.get(`responses/${num}/${cursor}`)
-        let newCursor = cursor + num,
-            responses = Array.isArray(apiResponses) ? apiResponses.map(response => this.responseReducer(response)) : []
-
+        let responses = Array.isArray(apiResponses) ? apiResponses.map(response => this.responseReducer(response)) : [],
+            newCursor = cursor + responses.length
         return {
             cursor: newCursor,
             hasMore: responses.length == num,
@@ -32,7 +31,7 @@ class ResponseAPI extends RESTDataSource {
             visibility: response.visibility,
             responseFlag: response.response,
             guests: response.guests,
-            memberId: this.context.dataSources.memberAPI.getMemberById(response.member_id),
+            member: this.context.dataSources.memberAPI.getMemberById(response.member_id),
             mtime: response.mtime,
             event: this.context.dataSources.eventAPI.getEventById(response.event_id),
             group: this.context.dataSources.groupAPI.getGroupById(response.group_id)
