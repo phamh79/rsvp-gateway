@@ -8,8 +8,8 @@ class EventAPI extends RESTDataSource {
     }
 
     async getEvents({ num = 30, cursor = 0 }) {
-        const rtnEvents = await this.get(`events/${num}/${cursor}`)
-        let events = Array.isArray(rtnEvents) ? apiEvents.map(event => this.eventReducer(event)) : [],
+        const apiEvents = await this.get(`events/${num}/${cursor}`)
+        let events = Array.isArray(apiEvents) ? apiEvents.map(event => this.eventReducer(event)) : [],
             newCursor = cursor + events.length
 
         return {
@@ -31,7 +31,7 @@ class EventAPI extends RESTDataSource {
         return {
             eventName: event.event_name,
             eventId: event.event_id,
-            time: event.time,
+            time: (new Date(event.time)).toString(),
             eventURL: event.event_url,
             venue: this.context.dataSources.venueAPI.getVenueById(event.venue_id),
         }

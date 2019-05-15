@@ -31,8 +31,10 @@ class VenueAPI extends RESTDataSource {
         return {
             venueId: venue.venue_id,
             venueName: venue.venue_name,
-            time: venue.time,
+            time: (new Date(venue.time)).toString(),
             venueURL: venue.venue_url,
+            lon: venue.lon,
+            lat: venue.lat,
             group: this.context.dataSources.groupAPI.getGroupById(venue.group_id),
         }
     }

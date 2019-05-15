@@ -32,7 +32,7 @@ class ResponseAPI extends RESTDataSource {
             responseFlag: response.response,
             guests: response.guests,
             member: this.context.dataSources.memberAPI.getMemberById(response.member_id),
-            mtime: response.mtime,
+            mtime: (new Date(response.mtime)).toString(),
             event: this.context.dataSources.eventAPI.getEventById(response.event_id),
             group: this.context.dataSources.groupAPI.getGroupById(response.group_id)
         }

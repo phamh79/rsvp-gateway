@@ -44,7 +44,7 @@ module.exports = typeDefs = gql`
     type GroupsResult {
         cursor: Int!
         hasMore: Boolean!
-        records: [Member]!
+        records: [Group]!
     }
 
     type ResponsesResult {
