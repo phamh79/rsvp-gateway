@@ -1,9 +1,9 @@
 const { RESTDataSource } = require('apollo-datasource-rest')
-
+const {resolveEndpoint} = require('../../utils/misc')
 class ResponseAPI extends RESTDataSource {
     constructor() {
         super()
-        this.baseURL = 'http://localhost:9001/rsvp/v1/'
+        this.baseURL = resolveEndpoint('RESPONSE_SERVICE_ENDPOINT')
     }
 
     async getResponses({ num = 30, cursor = 0 }) {

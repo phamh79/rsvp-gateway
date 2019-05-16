@@ -1,8 +1,9 @@
 const { RESTDataSource } = require('apollo-datasource-rest')
+const {resolveEndpoint} = require('../../utils/misc')
 class GroupAPI extends RESTDataSource {
     constructor() {
         super()
-        this.baseURL = 'http://localhost:9006/rsvp/v1/'
+        this.baseURL = resolveEndpoint('GROUP_SERVICE_ENDPOINT')
     }
 
     async getGroups({ num = 30, cursor = 0 }) {

@@ -1,9 +1,9 @@
 const { RESTDataSource } = require('apollo-datasource-rest')
-
+const {resolveEndpoint} = require('../../utils/misc')
 class VenueAPI extends RESTDataSource {
     constructor() {
         super()
-        this.baseURL = 'http://localhost:9003/rsvp/v1/'
+        this.baseURL = resolveEndpoint('VENUE_SERVICE_ENDPOINT')
 
     }
 

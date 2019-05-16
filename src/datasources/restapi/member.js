@@ -1,8 +1,9 @@
 const { RESTDataSource } = require('apollo-datasource-rest')
+const {resolveEndpoint} = require('../../utils/misc')
 class MemberAPI extends RESTDataSource {
     constructor() {
         super()
-        this.baseURL = 'http://localhost:9002/rsvp/v1/'
+        this.baseURL = resolveEndpoint('MEMBER_SERVICE_ENDPOINT')
     }
 
     async getMembers({ num = 30, cursor = 0 }) {

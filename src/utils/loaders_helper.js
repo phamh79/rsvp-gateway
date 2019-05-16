@@ -1,11 +1,11 @@
 const fetch = require('node-fetch')
-
+const {resolveEndpoint} = require('./misc')
 async function eventBatchFn(eventIds) {
     const params = new URLSearchParams();
     for (eventId of eventIds) {
         params.append('id', eventId)
     }
-    let events = await fetch('http://localhost:9000/rsvp/v1/events/ids/', {
+    let events = await fetch(resolveEndpoint('EVENT_SERVICE_ENDPOINT', 'events/ids/'), {
         method: 'POST',
         body: params,
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -26,7 +26,7 @@ async function groupBatchFn(groupsIds) {
         params.append('id', groupId)
         normalizedIds.push(parseInt(groupId))
     }
-    let groups = await fetch('http://localhost:9006/rsvp/v1/groups/ids/', {
+    let groups = await fetch(resolveEndpoint('GROUP_SERVICE_ENDPOINT', 'groups/ids/'), {
         method: 'POST',
         body: params,
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -48,7 +48,7 @@ async function memberBatchFn(membersIds) {
         params.append('id', memberId)
         normalizedIds.push(parseInt(memberId))
     }
-    let members = await fetch('http://localhost:9002/rsvp/v1/members/ids/', {
+    let members = await fetch(resolveEndpoint('MEMBER_SERVICE_ENDPOINT', 'members/ids/'), {
         method: 'POST',
         body: params,
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -69,7 +69,7 @@ async function responseBatchFn(responsesIds) {
         params.append('id', responseId)
         normalizedIds.push(parseInt(responseId))
     }
-    let responses = await fetch('http://localhost:9001/rsvp/v1/responses/ids/', {
+    let responses = await fetch(resolveEndpoint('RESPONSE_SERVICE_ENDPOINT', 'responses/ids/'), {
         method: 'POST',
         body: params,
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -91,7 +91,7 @@ async function venueBatchFn(venuesIds) {
         params.append('id', venueId)
         normalizedIds.push(parseInt(venueId))
     }
-    let venues = await fetch('http://localhost:9003/rsvp/v1/venues/ids/', {
+    let venues = await fetch(resolveEndpoint('VENUE_SERVICE_ENDPOINT', 'venues/ids/'), {
         method: 'POST',
         body: params,
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

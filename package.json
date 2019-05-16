@@ -4,7 +4,8 @@
 	"description": "single endpoint for rsvp services",
 	"main": "index.js",
 	"scripts": {
-		"start": "nodemon ./src/index.js --ignore 'node_modules/'",
+		"start": "NODE_ENV=production node ./src/index.js",
+		"dev": "NODE_ENV=development nodemon ./src/index.js --ignore 'node_modules/'",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
@@ -24,6 +25,7 @@
 		"apollo-datasource-rest": "^0.4.0",
 		"apollo-server": "^2.5.0",
 		"dataloader": "^1.4.0",
+		"dotenv": "^8.0.0",
 		"form-data": "^2.3.3",
 		"graphql": "^14.3.0",
 		"graphql-type-json": "^0.3.0"

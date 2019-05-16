@@ -13,7 +13,7 @@ const VenueAPI = require('./datasources/restapi/venue')
 const GroupAPI = require('./datasources/restapi/group')
 const MemberAPI = require('./datasources/restapi/member')
 const ResponseAPI = require('./datasources/restapi/response')
-
+require('dotenv').config()
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -35,3 +35,4 @@ const server = new ApolloServer({
 server.listen().then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
 });
+console.log(process.env);
