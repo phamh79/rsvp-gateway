@@ -2,7 +2,7 @@ const { gql } = require('apollo-server');
 const { GraphQLScalarType } = require('graphql');
 module.exports = typeDefs = gql`
 
-    type Query {
+    type Query  {
         # Queries for events
         events(num: Int cursor: Int): EventsResult!
         eventById(id: ID!): Event
@@ -13,7 +13,7 @@ module.exports = typeDefs = gql`
         members(num: Int cursor: Int): MembersResult!
         memberById(id: ID!): Member
         #Queries for response
-        responses(num: Int cursor: Int): ResponsesResult!
+        responses (num: Int cursor: Int) : ResponsesResult!
         responseById(id: ID!): Response
         #Queries for venue
         venues(num: Int cursor: Int): VenuesResult!
@@ -47,10 +47,10 @@ module.exports = typeDefs = gql`
         records: [Group]!
     }
 
-    type ResponsesResult {
+    type ResponsesResult @cacheControl(maxAge: 60) {
         cursor: Int!
         hasMore: Boolean!
-        records: [Response]!
+        records: [Response]! 
     }
 
     type VenuesResult {
@@ -67,7 +67,7 @@ module.exports = typeDefs = gql`
         venue: Venue
     }
 
-    type Response {
+    type Response @cacheControl(maxAge: 60){
         responseId: Int!
         member: Member
         venue: Venue
