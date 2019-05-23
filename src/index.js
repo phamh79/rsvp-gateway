@@ -4,6 +4,7 @@ const http = require('http');
 const { ApolloServer } = require('apollo-server-express');
 const { RedisCache } = require('apollo-server-cache-redis');
 const responseCachePlugin = require('apollo-server-plugin-response-cache');
+const {resolveEnvVar} = require('./utils/misc')
 
 const typeDefs = require('./schema/rsvp');
 const resolvers = require('./resolvers/rsvp')
@@ -25,7 +26,7 @@ const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
   cache: new RedisCache({
-    host: '127.0.0.1',
+    host: resolveEnvVar('REDIS_CONNECT'),
     port: '6379',
     db: '11'
   }),
